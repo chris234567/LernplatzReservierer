@@ -37,6 +37,7 @@ phone_number = '01705971571'
 
 # room parameter 
 
+seat_name = '409 D'
 seat_id = '394'
 floor = 'hb-og-2'
 date = '2021-06-06' # 2021-06-06  / YYY-MM-DD
@@ -44,46 +45,52 @@ time_slot = '1800' # 0800, 1400, 1800 / HHmm
 
 initial_url = 'https://reservierung.ub.fau.de/room/{0}/?room_id=385&seat_id=470&bookingdate={1}&timeslot={2}&nonce=e4163afc94#'.format(floor, date, time_slot)
 
-try:
-    driver = webdriver.Chrome(ChromeDriverManager().install())
-    driver.get(initial_url)
+driver = webdriver.Chrome(ChromeDriverManager().install())
+driver.get(initial_url)
 
-    # page 1 - authentication
+# page 2 - authentication
 
-    driver.find_element_by_id('username').send_keys(id)
-    driver.find_element_by_id('password').send_keys(pwd)
+username_field = driver.find_element_by_id('username')
+password_field = driver.find_element_by_id('password')
 
-    driver.find_element_by_name('submit_ldap').click()
+username_field.send_keys(id)
+password_field.send_keys(pwd)
 
-    # page 2 - booking
+submit_button_0 = driver.find_element_by_name('submit_ldap')
+submit_button_0.click()
 
-    new_url = re.sub(
-        'bookingdate=\d{4}-\d{2}-\d{2}', 
-        'bookingdate={}'.format(date), 
-        driver.current_url
-    )
-    driver.get(new_url)
+# page 3 - booking
 
-    sleep(.5)
-    driver.find_element_by_id('rsvp_time_{}'.format(time_slot)).click()
+new_url = re.sub(
+    'bookingdate=\d{4}-\d{2}-\d{2}', 
+    'bookingdate={}'.format(date), 
+    driver.current_url
+)
+driver.get(new_url)
 
-    sleep(.5)
-    driver.find_element_by_id('rsvp_seat_{}'.format(seat_id)).click()
+sleep(.5)
+time_slot_button = driver.find_element_by_id('rsvp_time_{}'.format(time_slot))  
+time_slot_button.click()
 
-    driver.find_element_by_name('rsvp_firstname').send_keys(last_name)
-    driver.find_element_by_name('rsvp_lastname').send_keys(first_name)
-    driver.find_element_by_name('rsvp_phone').send_keys(phone_number)
+sleep(.5)
+seat_button = driver.find_element_by_id('rsvp_seat_{}'.format(seat_id))
+seat_button.click()
 
-    sleep(.5) # alternativ wait.until() .. 
-    driver.find_element_by_xpath("//input[@type='checkbox']").click()
+first_name_field = driver.find_element_by_name('rsvp_firstname')
+last_name_field = driver.find_element_by_name('rsvp_lastname')
+phone_number_field = driver.find_element_by_name('rsvp_phone')
 
-    sleep(.5)
-    driver.find_elements_by_xpath("//*[contains(text(), 'Buchung absenden')]")[0].click()
+last_name_field.send_keys(last_name)
+first_name_field.send_keys(first_name)
+phone_number_field.send_keys(phone_number)
 
-    sys.stdout.write('Buchung war erfolgreich. Email wird versandt.')  
-    pass
-except:
-    sys.stdout.write('Raum ist zu gegebenem Datum und Timeslot nicht verfuegbar.')
+sleep(.5) # alternativ wait until .. 
+check_box = driver.find_element_by_xpath("//input[@type='checkbox']")
+check_box.click()
+
+# submit_button_1 = driver.find_element_by_xpath("//input[@type='submit']")
+# submit_button_1.submit()
+
 
 while True:
     pass
