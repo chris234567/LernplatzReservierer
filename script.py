@@ -2,6 +2,8 @@ import sys
 import re
 from time import sleep
 
+from utils import get_nonce, authenticate
+
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -20,8 +22,9 @@ seat_id = '394'
 floor = 'hb-og-2'
 date = '2021-06-06' # 2021-06-06  / YYY-MM-DD
 time_slot = '1800' # 0800, 1400, 1800 / HHmm
+nonce = get_nonce()
 
-initial_url = 'https://reservierung.ub.fau.de/room/{0}/?room_id=385&seat_id=470&bookingdate={1}&timeslot={2}&nonce=e4163afc94#'.format(floor, date, time_slot)
+initial_url = 'https://reservierung.ub.fau.de/room/{0}/?room_id=385&seat_id=470&bookingdate={1}&timeslot={2}&nonce={3}'.format(floor, date, time_slot, nonce)
 
 try:
     driver = webdriver.Chrome(ChromeDriverManager().install())
@@ -29,10 +32,7 @@ try:
 
     # page 1 - authentication
 
-    driver.find_element_by_id('username').send_keys(id)
-    driver.find_element_by_id('password').send_keys(pwd)
-
-    driver.find_element_by_name('submit_ldap').click()
+    authenticate()
 
     # page 2 - booking
 
