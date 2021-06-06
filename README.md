@@ -14,7 +14,7 @@ login data via launch.json args:
 <br>
 <br>
 "args": [<br>
->>$UB_NUMMER, $PASSWORT_KOMBINATION,<br>
->>$VORNAME, $NACHNAME,<br>
->>$TELEFONUMMER<br>
+&nbsp;&nbsp;&nbsp;$UB_NUMMER, $PASSWORT_KOMBINATION,<br>
+&nbsp;&nbsp;&nbsp;$VORNAME, $NACHNAME,<br>
+&nbsp;&nbsp;&nbsp;$TELEFONUMMER<br>
 ]
