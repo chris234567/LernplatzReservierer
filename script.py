@@ -32,7 +32,7 @@ try:
 
     # page 1 - authentication
 
-    authenticate()
+    authenticate(driver)
 
     # page 2 - booking
 
@@ -60,7 +60,6 @@ try:
     driver.find_elements_by_xpath("//*[contains(text(), 'Buchung absenden')]")[0].click()
 
     sys.stdout.write('Buchung war erfolgreich. Email wird versandt.')  
-    pass
 except:
     sys.stdout.write('Raum ist zu gegebenem Datum und Timeslot nicht verfuegbar.')
 
