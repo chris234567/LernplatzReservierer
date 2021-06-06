@@ -10,7 +10,7 @@ pass arguments as callparameter from a terminal:
 py script.py $UB_NUMMER $PASSWORT_KOMBINATION $VORNAME $NACHNAME $TELEFONUMMER
 <br>
 
-<k>or<k>
+<i>or<i>
 
 login data via launch.json args:
 <br>
