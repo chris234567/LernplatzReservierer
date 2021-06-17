@@ -4,4 +4,19 @@ Ein kleines Skript, welches einem den lieblings UB Lernplatz in der Klausurenpha
 
 ## Benutzung
 
-... 
+pass arguments as callparameter from a terminal:
+<br>
+<br>
+py script.py $UB_NUMMER $PASSWORT_KOMBINATION $VORNAME $NACHNAME $TELEFONUMMER
+<br>
+
+<i>- or -<i>
+
+login data via launch.json args:
+<br>
+<br>
+"args": [<br>
+&nbsp;&nbsp;&nbsp;$UB_NUMMER, $PASSWORT_KOMBINATION,<br>
+&nbsp;&nbsp;&nbsp;$VORNAME, $NACHNAME,<br>
+&nbsp;&nbsp;&nbsp;$TELEFONUMMER<br>
+]
