@@ -1,11 +1,11 @@
 import sys
-import re
+from re import sub
 from time import sleep
-
-from utils import get_nonce, authenticate
 
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+
+from utils import get_nonce, authenticate
 
 # login data
 
@@ -18,25 +18,24 @@ phone_number = sys.argv[5]
 
 # room parameter 
 
-seat_id = '394'
-floor = 'hb-og-2'
-date = '2021-06-06' # 2021-06-06  / YYY-MM-DD
-time_slot = '1800' # 0800, 1400, 1800 / HHmm
+floor = sys.argv[5]
+seat_id = sys.argv[6]
+room_id = sys.argv[7]
+date = sys.argv[8]
+time_slot = sys.argv[9]
 nonce = get_nonce()
 
-initial_url = 'https://reservierung.ub.fau.de/room/{0}/?room_id=385&seat_id=470&bookingdate={1}&timeslot={2}&nonce={3}'.format(floor, date, time_slot, nonce)
+initial_url = 'https://reservierung.ub.fau.de/room/{0}/?room_id={1}&seat_id={2}}&bookingdate={3}&timeslot={4}&nonce={5}'.format(
+    floor, room_id, seat_id,date, time_slot, nonce
+)
 
 try:
     driver = webdriver.Chrome(ChromeDriverManager().install())
     driver.get(initial_url)
 
-    # page 1 - authentication
-
     authenticate(driver)
 
-    # page 2 - booking
-
-    new_url = re.sub(
+    new_url = sub(
         'bookingdate=\d{4}-\d{2}-\d{2}', 
         'bookingdate={}'.format(date), 
         driver.current_url

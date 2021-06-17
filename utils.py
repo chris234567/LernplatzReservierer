@@ -14,7 +14,7 @@ def get_nonce():
     return url[url.index('nonce=') + 6: -1]
 
 
-def authenticate(curr_driver):
+def authenticate(curr_driver: webdriver):
     driver = curr_driver
     id = sys.argv[1]
     pwd = sys.argv[2]
